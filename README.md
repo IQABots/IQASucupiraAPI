@@ -1,4 +1,4 @@
-<h1 align="center">Sucupira-Capes-Bot 🎓</h1>
+<h1 align="center">QASucupira API🎓</h1>
 
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)
 
