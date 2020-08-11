@@ -2,7 +2,6 @@ import os
 
 from flask import Flask
 from flask_bcrypt import Bcrypt
-from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -12,4 +11,4 @@ app.config.from_object(app_settings)
 
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
-jwt = JWTManager(app)
+

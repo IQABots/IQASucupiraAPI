@@ -1,13 +1,13 @@
-<h1 align="center">QASucupira API🎓</h1>
+<h1 align="center">IQASucupira API🎓</h1>
 
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)
 
 
-> API Question-Answering do projeto SucupiraBot.
+> API Interactive Question-Answering do projeto SucupiraBot.
 
 ## 📖 Sobre
 
-O SucupiraQA é uma ferramenta que foi construída com o objetivo de facilitar a consulta de informações da plataforma Sucupira através de linguagem natural. Na Figura abaixo ilustramos as operações realizadas em nossa API.
+O IQASucupira é uma ferramenta que foi construída com o objetivo de facilitar a consulta de informações da plataforma Sucupira através de linguagem natural. Na Figura abaixo ilustramos as operações realizadas em nossa API.
 
 <img src="QASucupira-API.png" alt="QASucupira API" style="zoom:80%;" />
 
@@ -22,7 +22,7 @@ O SucupiraQA é uma ferramenta que foi construída com o objetivo de facilitar a
 
    - Crie o seu banco de dados no *PostgreSQL*.
 
-   - No arquivo *.env.sample* insira coloque a [URI de conexão](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING) do *PostgreSQL* na variável `DB_URL` .
+   - No arquivo *.env.sample* insira a [URI de conexão](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING) do *PostgreSQL* na variável `DB_URL` .
 
    - Em *.env.sample* forneça também a `SECRET_KEY` utilizada para gerar os *tokens*. Caso não tenha uma ideia do que colocar, você pode gerar uma string aleatória com o código abaixo.
 

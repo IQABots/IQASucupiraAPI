@@ -1,11 +1,17 @@
 from api.server.settings import app, bcrypt, db
+from flask_jwt_extended import JWTManager
 
+jwt = JWTManager(app)
+
+
+@jwt.token_in_blacklist_loader
+def check_if_token_is_revoked(decrypted_token):
+    jti = decrypted_token["jti"]
+    return RevokedTokenModel.check_is_revoked(jti)
 
 class UserModel(db.Model):
     """
     Classe responsável por salvar as informações do usuário no banco.
-
-    ...
 
     Attributes
     ----------
@@ -36,8 +42,6 @@ class UserModel(db.Model):
 class RevokedTokenModel(db.Model):
     """
     Classe responsável por salvar as informações de TOKENS no banco.
-
-    ...
 
     Attributes
     ----------

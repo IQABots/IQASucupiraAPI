@@ -40,7 +40,7 @@ class TestingConfig(BaseConfig):
     """Configurações para o teste.
 
     Além das configurações básica, contém as configurações do Banco de Dados
-    utilizado no teste.
+    utilizadas no teste.
 
     """
 
@@ -55,7 +55,7 @@ class ProductionConfig(BaseConfig):
     """Configurações da produção.
 
     Além das configurações básica, contém as configurações do Banco de Dados
-    que será utilizado na produção.
+    que serão utilizadas na produção.
 
     """
 

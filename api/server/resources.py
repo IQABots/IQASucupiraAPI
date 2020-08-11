@@ -10,16 +10,16 @@ from flask_jwt_extended import (
 from flask_restx import Api, Resource, fields
 
 from api.server.models import RevokedTokenModel, UserModel
-from api.server.settings import bcrypt, db, jwt
+from api.server.settings import bcrypt, db
 from nlp import get_answer
 
-bp = Blueprint("QASucupira-API", __name__)
+bp = Blueprint("IQASucupira-API", __name__)
 
 
 api = Api(
     app=bp,
     version="0.0.1",
-    title="QASucupira API",
+    title="IQASucupira API",
     description="Consulta de informações da plataforma Sucupira.",
     default="Api",
     default_label="Endpoints",
@@ -43,12 +43,6 @@ parser = namespace.parser()
 parser.add_argument(
     "Authorization", location="headers", required=True, help="Bearer <JWT>"
 )
-
-
-@jwt.token_in_blacklist_loader
-def check_if_token_is_revoked(decrypted_token):
-    jti = decrypted_token["jti"]
-    return RevokedTokenModel.check_is_revoked(jti)
 
 
 class UserRegisterAPI(Resource):
@@ -85,8 +79,8 @@ class UserRegisterAPI(Resource):
 
                 # Retornar os tokens de acesso ao usuário
                 response_json = {
-                    "status": "success",
-                    "message": f"User {user.username} was registered",
+                    
+                    "msg": f"User {user.username} was registered",
                     "access_token": access_token,
                     "refresh_token": refresh_token,
                 }
@@ -94,15 +88,15 @@ class UserRegisterAPI(Resource):
             except Exception as e:
                 print(e)
                 response_json = {
-                    "status": "fail",
-                    "message": "Some error occurred. Please try again.",
+                    
+                    "msg": "Some error occurred. Please try again.",
                 }
                 return response_json, 400
 
         else:
             response_json = {
-                "status": "fail",
-                "message": "User already exists. Please Log in.",
+                
+                "msg": "User already exists. Please Log in.",
             }
             return response_json, 202
 
@@ -138,27 +132,26 @@ class UserLoginAPI(Resource):
 
                     # Retornar os tokens de acesso
                     response_json = {
-                        "status": "success",
-                        "message": f"Logged in as {user.username}",
+                        "msg": f"Logged in as {user.username}",
                         "access_token": access_token,
                         "refresh_token": refresh_token,
                     }
                     return response_json, 200
                 else:
                     response_json = {
-                        "status": "fail",
-                        "message": "Incorrect password, please try again.",
+                        
+                        "msg": "Incorrect password, please try again.",
                     }
                     return response_json, 401
             else:
                 response_json = {
-                    "status": "fail",
-                    "message": "User does not exist.",
+                    
+                    "msg": "User does not exist.",
                 }
                 return response_json, 404
         except Exception as e:
             print(e)
-            response_json = {"status": "fail", "message": "Try again"}
+            response_json = { "msg": "Try again"}
             return response_json, 500
 
 
@@ -185,17 +178,15 @@ class LogoutAPIAccess(Resource):
                 db.session.add(blacklist_token)
                 db.session.commit()
                 response_json = {
-                    "status": "success",
-                    "message": "Successfully logged out.",
+                    "msg": "Successfully logged out.",
                 }
                 return response_json, 200
             except Exception as e:
-                response_json = {"status": "fail", "message": e}
+                response_json = { "msg": e}
                 return response_json, 200
         else:
             response_json = {
-                "status": "fail",
-                "message": "Provide a valid auth token.",
+                "msg": "Provide a valid access token.",
             }
             return response_json, 403
 
@@ -223,17 +214,15 @@ class LogoutAPIRefresh(Resource):
                 db.session.add(blacklist_token)
                 db.session.commit()
                 response_json = {
-                    "status": "success",
-                    "message": "Successfully logged out.",
+                    "msg": "Successfully logged out.",
                 }
                 return response_json, 200
             except Exception as e:
-                response_json = {"status": "fail", "message": e}
+                response_json = { "msg": e}
                 return response_json, 200
         else:
             response_json = {
-                "status": "fail",
-                "message": "Provide a valid auth token.",
+                "msg": "Provide a valid refresh token.",
             }
             return response_json, 403
 
@@ -269,24 +258,32 @@ class QASucupira(Resource):
             401: "Token already revoked",
             422: "Malformed token",
         },
-        params={"q": "Campo de consulta."},
+        params={
+            "q": "Pergunta escrita em linguagem natural.",
+            "uid": "Identificador do usuário." ,
+            "mid": "Identificador da mensagem do usuário.",
+            "bid": "Identificador do bot."
+        },
     )
     @api.expect(parser)
     @jwt_required
     def get(self):
         try:
             query = request.args.get("q")
+            user_id = request.args.get("uid")
+            msg_id = request.args.get("mid")
+            bot_id = request.args.get("bid")
             if query:
                 # Obtém a resposta de acordo com a query informada
-                return get_answer(query), 200
+                return get_answer(query, msg_id, user_id, bot_id), 200
             else:
                 response_json = {
-                    "status": "fail",
-                    "message": "Parameter is missing in the query string.",
+                    
+                    "msg": "Parameter is missing in the query string.",
                 }
                 return response_json, 400
         except Exception as e:
-            response_json = {"status": "fail", "message": e}
+            response_json = { "msg": e}
             return response_json, 500
 
 
