@@ -4,22 +4,24 @@ from iqa.nlp import search
 import pandas as pd
 
 def test_search(nlu_obj):
-    results = nlu_obj.get_response('teses da area de computaçao')
-    #print(results)
-    
-    rasa_entities = nlu_obj._interpreter.parse('me mostre o autor do 1')
-    entities = rasa_entities['entities']
-    df = pd.DataFrame({'NM_DISCENTE':['a','b','c']})
+    data=['dog','cat','ant']
+    term = 'canines'
+    embeddings =  pickle.load(open('/home/navi1921/QASucupira-API/iqa/embeddings/teses_dict_embeddings.p','rb'))
+    embed = SentenceTransformer('distiluse-base-multilingual-cased')
+    assert type(r1)==np.ndarray
+    assert type(r2)==np.ndarray
     results = search.semantic_search(term,data,embeddings,embed)
-    assert len(results['results'])==1
+    assert len(results['results'])==3
+    assert type(results['results'])==list
 
 def test_fail_search(nlu_obj):
-    results = nlu_obj.get_response('teses da area de computaçao')
-    #print(results)
-    rasa_entities = nlu_obj._interpreter.parse('me mostre o autor do 10')
-    entities = rasa_entities['entities']
-    df = pd.DataFrame({'NM_DISCENTE':['a','b','c']})
+    data=['dog','cat','ant']
+    term = ''
+    embeddings =  pickle.load(open('/home/navi1921/QASucupira-API/iqa/embeddings/teses_dict_embeddings.p','rb'))
+    embed = SentenceTransformer('distiluse-base-multilingual-cased')
+    
     results = search.semantic_search(term,data,embeddings,embed)
+    assert len(results['results'])==3
+    assert type(results['results'])==list
 
-    assert len(results['results'])==0
 
