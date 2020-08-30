@@ -7,7 +7,7 @@ O que é o IQASucupira?
 
 **IQASucupira** ("IQA" de *Interactive Question-Answering*, Sucupira nome da plataforma de dados) é
 uma API escrita em python que tem como objetivo permitir a consulta de informações da Plataforma 
-Sucupira através de perguntas escritas em linguagem Natural. O formato o qual modelamos API, permite
+Sucupira através de perguntas escritas em linguagem Natural. O formato o qual modelamos a API, permite
 a sua reutilização por clientes HTTP, a fim de facilitar a integração com outros sistemas e assim
 acessar as suas funcionalidades através dos verbos HTTP GET e POST. 
 
