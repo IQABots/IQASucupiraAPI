@@ -59,3 +59,11 @@ O IQASucupira é uma ferramenta que foi construída com o objetivo de facilitar 
      - ```sh
        $ python manage.py runserver -h 0.0.0.0 -p 3000
        ```
+5. **Testando a aplicação**
+
+   - A biblioteca utilizada para realizar os testes foi o pytest, você pode executar os testes usando o comando abaixo:
+
+     - ```sh
+       $ python manage.py test
+       ```
+   - Para verificar o nivel de cobertura do test, troque a variavel test por cov
