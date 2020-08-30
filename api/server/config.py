@@ -1,8 +1,8 @@
 import os
 
-from dotenv import load_dotenv
 
-load_dotenv()
+
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 postgres_connection_uri = os.getenv("DB_URL")

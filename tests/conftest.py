@@ -1,5 +1,6 @@
 import pytest
 
+from iqa.nlp.nlu import NLU
 from api.server import app
 from api.server.settings import db
 
@@ -33,13 +34,12 @@ def prod_app():
 def init_db():
     db.create_all()
     db.session.commit()
-    # Insert user data
-    # user1 = User(email='patkennedy79@gmail.com', password='FlaskIsAwesome')
-    # user2 = User(email='kennedyfamilyrecipes@gmail.com', password='PaSsWoRd')
-    # db.session.add(user1)
-    # db.session.add(user2)
-
     yield db
 
     db.session.remove()
     db.drop_all()
+
+
+@pytest.fixture(scope="module")
+def nlu_obj():
+    return NLU()

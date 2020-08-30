@@ -11,7 +11,7 @@ from flask_restx import Api, Resource, fields
 
 from api.server.models import RevokedTokenModel, UserModel
 from api.server.settings import bcrypt, db
-from nlp import get_answer
+from iqa import get_answer
 
 bp = Blueprint("IQASucupira-API", __name__)
 

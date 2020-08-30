@@ -1,6 +1,6 @@
 import pytest
 import os
-
+import nltk
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
@@ -48,6 +48,11 @@ def drop_db():
     Esta função permite deletar todas as tabelas no banco.
     """
     db.drop_all()
+
+@manager.command
+def nltk_download():
+    nltk.download("stopwords")
+    nltk.download("punkt") 
 
 
 if __name__ == "__main__":

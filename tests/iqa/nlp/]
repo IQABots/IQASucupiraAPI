@@ -1,0 +1,13 @@
+import pytest
+
+from iqa.nlp import show
+
+def test_process_show(nlu_obj):
+    results = nlu_obj.get_response('teses da area de computaçao')
+    #print(results)
+    rasa_entities = nlu_obj._interpreter.parse('me mostre o autor do 1')
+    entities = rasa_entities['entities']
+    results = show.process_show(entities,results['results'],'query')
+    print(results)
+    assert len(results['results'])==1 
+
