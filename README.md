@@ -67,3 +67,5 @@ O IQASucupira é uma ferramenta que foi construída com o objetivo de facilitar 
        $ python manage.py test
        ```
    - Para verificar o nivel de cobertura do test, troque a variavel test por cov
+6. **Documentação**
+   - https://iqasucupiraapi-docs.netlify.app/
